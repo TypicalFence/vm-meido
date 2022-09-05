@@ -12,6 +12,7 @@ import (
 var Config *vm_meido.Config
 var MeidoFile *vm_meido.MeidoFile
 var Provider vm_meido.Provider
+var ProviderName providers.ProviderName
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -36,6 +37,7 @@ func initConfig() {
 	case providers.DIGITALOCEAN:
 		provider := CreateDigitaloceanProvider(*config)
 		Provider = provider
+		ProviderName = providers.DIGITALOCEAN
 	default:
 		println("Provider: " + config.Provider)
 		cobra.CheckErr(errors.New("Provider does not exist"))

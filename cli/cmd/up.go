@@ -27,7 +27,16 @@ var upCmd = &cobra.Command{
 			os.Exit(0)
 		}
 
-		name, err := Provider.ProvisionVm(vm_meido.VmSettings{Size: MeidoFile.Size, Distro: MeidoFile.Distro, Region: Config.Region})
+		name, err := Provider.ProvisionVm(vm_meido.VmSettings{Size: MeidoFile.Size, Distro: MeidoFile.Distro, Region: Config.Region, SSHkey: Config.SSHkey})
+
+		// save state for later in case of error
+		state = new(vm_meido.VmState)
+		state.Name = name
+		state.IpAddress = ""
+		state.VmStatus = "IDLE"
+		state.Provider = string(ProviderName)
+
+		vm_meido.SaveState(*state)
 
 		if err != nil {
 			log.Fatal(err)

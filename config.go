@@ -12,6 +12,7 @@ import (
 type Config struct {
 	Region      Region                 `ini:"region"`
 	Provider    providers.ProviderName `ini:"provider"`
+	SSHkey      string                 `ini:"sshkey"`
 	Digtalocean struct {
 		ApiKey string `ini:"api_key"`
 	} `ini:"digitalocean"`

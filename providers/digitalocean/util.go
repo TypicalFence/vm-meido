@@ -45,7 +45,8 @@ func createDroplet(ctx context.Context, client *godo.Client, name string, settin
 		Image: godo.DropletCreateImage{
 			Slug: slug,
 		},
-		Tags: []string{"vm-meido"},
+		SSHKeys: []godo.DropletCreateSSHKey{{Fingerprint: settings.SSHkey}},
+		Tags:    []string{"vm-meido"},
 	}
 
 	newDroplet, _, err := client.Droplets.Create(ctx, createRequest)

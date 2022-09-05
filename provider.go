@@ -16,4 +16,5 @@ type VmSettings struct {
 	Size   vm_size.VmSize
 	Distro distro.Distro
 	Region Region
+	SSHkey string
 }

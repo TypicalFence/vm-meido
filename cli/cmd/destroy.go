@@ -15,10 +15,13 @@ var destoryCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		setMeidoFile()
 		state, err := vm_meido.LoadState()
-		cobra.CheckErr(err)		
-		_, err = Provider.DestroyVm(state.Name)
 		cobra.CheckErr(err)
-		state.VmStatus = vm_meido.VM_STATUS_GONE
-		vm_meido.SaveState(*state)
+		if state.VmStatus != vm_meido.VM_STATUS_GONE {
+			_, err = Provider.DestroyVm(state.Name)
+			cobra.CheckErr(err)
+			state.VmStatus = vm_meido.VM_STATUS_GONE
+			state.IpAddress = ""
+			vm_meido.SaveState(*state)
+		}
 	},
 }
